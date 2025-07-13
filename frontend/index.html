@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>ICX Suite - Clients</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    table {
+      width: 60%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Liste des clients ICX</h1>
+  <table id="clients-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Les données seront insérées ici dynamiquement -->
+    </tbody>
+  </table>
+
+  <script>
+    fetch('https://icx-suite-backend.onrender.com/api/data')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('#clients-table tbody');
+        data.forEach(client => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${client.id}</td>
+            <td>${client.name}</td>
+            <td>${client.status}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error('Erreur lors de la récupération des données:', error);
+      });
+  </script>
+</body>
+</html>
